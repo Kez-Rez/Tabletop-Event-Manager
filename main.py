@@ -245,9 +245,9 @@ class BGEventsApp(ctk.CTk):
             SELECT
                 ci.id,
                 ci.description,
-                ci.due_date,
                 ci.is_completed,
                 e.event_name,
+                e.event_date,
                 e.id as event_id
             FROM event_checklist_items ci
             JOIN events e ON ci.event_id = e.id
@@ -256,13 +256,7 @@ class BGEventsApp(ctk.CTk):
             AND e.is_completed = 0
             ORDER BY
                 ci.is_completed ASC,
-                CASE
-                    WHEN ci.due_date < date('now') THEN 0
-                    WHEN ci.due_date = date('now') THEN 1
-                    WHEN ci.due_date <= date('now', '+7 days') THEN 2
-                    ELSE 3
-                END,
-                ci.due_date ASC
+                e.event_date ASC
         ''')
 
         dashboard_items = [dict(row) for row in cursor.fetchall()]
@@ -423,10 +417,10 @@ class BGEventsApp(ctk.CTk):
                     bg_color = "#E8F5E9"  # Light green for completed
                     border_color = "#81C784"
                     urgency_text = "Completed"
-                elif item['due_date']:
-                    due_date = datetime.strptime(item['due_date'], '%Y-%m-%d').date()
+                elif item['event_date']:
+                    event_date = datetime.strptime(item['event_date'], '%Y-%m-%d').date()
                     today = date.today()
-                    days_until = (due_date - today).days
+                    days_until = (event_date - today).days
 
                     if days_until < 0:
                         bg_color = "#FFEBEE"  # Light red for overdue
@@ -495,10 +489,10 @@ class BGEventsApp(ctk.CTk):
                 desc_label.bind("<Button-1>", lambda e, eid=event_id: self.open_event_from_dashboard(eid))
                 desc_label.configure(cursor="hand2")
 
-                # Urgency and due date
+                # Urgency and event date
                 info_text = f"{urgency_text}"
-                if item['due_date']:
-                    formatted_date = datetime.strptime(item['due_date'], '%Y-%m-%d').strftime('%A, %d %B %Y')
+                if item['event_date']:
+                    formatted_date = datetime.strptime(item['event_date'], '%Y-%m-%d').strftime('%A, %d %B %Y')
                     info_text += f" - {formatted_date}"
 
                 info_label = ctk.CTkLabel(
