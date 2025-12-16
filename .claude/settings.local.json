@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python add_include_attendees.py:*)",
+      "Bash(python update_checklist_columns.py:*)",
+      "Bash(python add_category_column.py:*)",
+      "Bash(python fix_include_attendees.py:*)",
+      "Bash(python:*)",
+      "Bash(sqlite3:*)",
+      "Bash(findstr:*)",
+      "Bash(del:*)",
+      "Bash(git config:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

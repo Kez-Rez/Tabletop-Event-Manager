@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+*.whl
+
+# PyInstaller
+*.spec
+
+# Database files (comment out if you want to track your database)
+events.db
+events.db-journal
+
+# Backups
+backups/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Config (if contains sensitive data)
+# config.json
+
+# Logs
+*.log
+nul
