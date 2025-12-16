@@ -154,6 +154,8 @@ class Database:
                 description TEXT NOT NULL,
                 is_completed BOOLEAN DEFAULT 0,
                 sort_order INTEGER DEFAULT 0,
+                show_on_dashboard BOOLEAN DEFAULT 0,
+                include_in_pdf BOOLEAN DEFAULT 1,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE,
                 FOREIGN KEY (category_id) REFERENCES checklist_categories(id)
